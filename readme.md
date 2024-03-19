@@ -1,19 +1,15 @@
-# Verisoul Unity Sample Project
+# unity-webview-sample-app
 
-This project demonstrates how to integrate the Verisoul webview and api into a Unity project.
+This project demonstrates how to integrate the Verisoul platform webview and API into a Unity project
 
 ## Getting Started
 
-These instructions will guide you on how to run the demo.
-
-### Prerequisites
-
 Ensure you have the following details:
 
-- Unity version xxxxx
-- UniWebView plugin installed [link to plugin]
-- API Key
-- Project ID
+- Unity version `2021.3.25f1`
+- [UniWebView](https://docs.uniwebview.com/) plugin installed
+- A Verisoul API Key
+- A Verisoul Project ID
 
 ### Running the Demo
 

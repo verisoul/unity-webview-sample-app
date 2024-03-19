@@ -15,11 +15,11 @@ namespace Verisoul
      public class SessionManager : MonoBehaviour
     {
         private UniWebView webView;
-        public enum Environment { dev, staging, sandbox, prod }
+        public enum Environment { sandbox, prod }
 
         public bool debugMode = true;
         [Header("Verisoul API Settings")]
-        public Environment env = Environment.dev;
+        public Environment env = Environment.sandbox;
         public string projectId;
         public string apiKey;
         public bool accountDetails = true;
@@ -50,6 +50,9 @@ namespace Verisoul
             }
         }
 
+        /*
+         * load the webview and pass the configured project_id and uniwebview flag as true
+         */
         void LoadSessionIdFromWebView()
         {
             GameObject webViewGameObject = new("uniWebView");
@@ -71,6 +74,7 @@ namespace Verisoul
                 webView.Show();
             }
 
+            // the webview will publish a message containing the session_id via uniwebview communication protocol 
             webView.OnMessageReceived += (view, message) =>
             {
                 StopCoroutine(webViewTimeout);
@@ -98,6 +102,9 @@ namespace Verisoul
             };
         }
 
+        /*
+         * it is possible the webview does not respond in which case you should close the webview and retry
+         */
         IEnumerator WebViewTimeout(GameObject webViewGameObject, float timeout)
         {
             yield return new WaitForSeconds(timeout);
@@ -110,6 +117,10 @@ namespace Verisoul
             Destroy(webViewGameObject);
         }
 
+        /*
+         * call Verisoul's API from a secure backend server the configured API Key
+         * optionally, pass query params account_detail and session_detail to see the full payload and fraud detection
+         */
         async Task Authenticate() {
             AuthenticatePayload values = new()
             {
